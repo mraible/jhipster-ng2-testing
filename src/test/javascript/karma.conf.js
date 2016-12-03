@@ -13,7 +13,7 @@ if (isDebug()) {
 }
 
 module.exports = function (config) {
-    var testWebpackConfig = require('webpack/webpack.dev');
+    var webpackConfig = require('../../../webpack/webpack.test');
 
     config.set({
         // base path, that will be used to resolve files and exclude
@@ -27,28 +27,28 @@ module.exports = function (config) {
          *
          * we are building the test environment in ./spec-bundle.js
          */
-        files: [ { pattern: 'src/test/javascript/spec-bundle.js', watched: false } ],
+        files: [ { pattern: './spec-bundle.js', watched: false } ],
 
         // list of files / patterns to exclude
-        exclude: ['src/test/javascript/e2e/**'],
+        exclude: ['./src/test/javascript/e2e/**'],
 
         /*
          * preprocess matching files before serving them to the browser
          * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
          */
-        preprocessors: { 'src/test/javascript/spec-bundle.js': sourcePreprocessors },
+        preprocessors: { './spec-bundle.js': sourcePreprocessors },
 
         // Webpack Config at ./webpack.dev.js
-        webpack: testWebpackConfig,
+        webpack: webpackConfig,
 
         reporters: ['dots', 'junit', 'coverage', 'progress'],
 
         junitReporter: {
-            outputFile: 'target/test-results/karma/TESTS-results.xml'
+            outputFile: './target/test-results/karma/TESTS-results.xml'
         },
 
         coverageReporter: {
-            dir: 'target/test-results/coverage',
+            dir: './target/test-results/coverage',
             reporters: [
                 {type: 'lcov', subdir: 'report-lcov'}
             ]
